@@ -1,0 +1,210 @@
+git --version
+git config --global user.name "unsername"
+git config --global user.email "email-id"
+git config --list
+mkdir dir1
+cd dir1    --> this will be work station
+git init
+touch file1 - put some data
+git clone <url>
+git status
+git add .
+git commit -m "comment/tag"
+git log
+git show <commit-id>
+git remote add origin <centralgit url>
+git merge origin master
+git push/pull -u origin master
+git push -u origin master --force
+git log --oneline
+git log -1 --> will show the latest commit
+git log --grep "commit"
+
+gitignore -> to Ignore any files from commits
+nano .gitignore -> create a hidden file and entre the files to be ignored
+git add .gitignore
+git commit -m "ignore file format"
+
+how to create Git branch
+git branch - to know which branch you are in.
+git branch branch1 - to create branch
+git checkout branch1 - to change into different branch. when a branch is created all files from master will be copied from master branch for 1st time.
+cat >branch1file
+git add .
+git commit -m "comment"
+git push origin branch1
+git branch -d branch1 - to delete a branch
+git branch -a -> to list all the branches
+
+how to merge Git branch
+git branch
+git merge barnch1
+
+git stash filename- to stash an item
+git stash list - to see stashed item list
+git stash apply stash@{0} - to apply stashed items
+git stash clear - to clear stash
+
+git reset file1 - to reset staging area
+git reset .
+git reset --hard - to delete file from working area and staging area
+
+git log --online
+git log --online | head -> to display latest 10 commits
+git revert <commit id> 2d56ca7febe7411e4c9a09fa72a1f1b9167db33d
+
+git clean -f/n -> to remove untracked file
+git tag -a <tagname> -m "<message>" commit-id - to apply tag
+git tag -to see the list of tags
+git show <tag name> - to see perticular commit content by using tag
+git tag -d <tag name> - to delete a tag
+
+git cherry-pick <commit-id> -> if you want to take any commit from one branch to another
+
+git config --global pull.rebase true
+
+$ git ls-remote git://github.com/user/repo.git
+<commit id>    HEAD
+<commit id>    refs/heads/example_branch
+<commit id>    refs/heads/master
+<commit id>    refs/tags/v1.0.2
+<commit id>    refs/tags/v1.0.0
+
+git add/rm <conflicted_files>", then run "git rebase --continue"
+
+git checkout master
+git pull origin master --rebase
+git push
+
+git push origin HEAD:master
+
+git config --global pull.rebase true
+git config --global fetch.prune true
+git config --global diff.colorMoved zebra
+git remote -v
+git remote set-url origin git@github.com:<orgname>/terraform-aws-lambda-nuke.git
+
+
+Docker 
+----------
+yum install docker -y
+docker -v                       -> to check version
+service docker status           -> will give status of docker
+docker info                     -> will give status of docker
+service docker start            -> to start the service
+docker images                   -> to list images
+docker images -q                -> will list only image id's
+docker ps                       -> will list running containers
+docker ps -a                    -> will list all(start/stop) containers
+docker run -it ubuntu /bin/bash -> to run/create container
+cat /etc/os-release             -> to know about container OS
+exit                            -> to comeout of docker and container stops
+docker pull jenkins             -> creates the image on local machine which can be run anytime.
+docker run -it --name guru ubuntu /bin/bash -> to name a container
+docker logs container-name/ID  --> check logs of the container
+docket top container-name/ID   --> to check the process running on container
+docker start container-name/id  -> to start a container
+docker attach container-name    -> to get into container
+docker exec -it <contianer-name> bash  -> to start and get into container
+docker stop container-name/id   -> to stop a container
+docker rm container-name        -> to delete a container
+docker stats container-name     -> to see the system resource being consumed.
+docker container ls
+docker container inspect <ContainerName>
+docker ps -aq
+docker rm $(docker ps -aq)
+docker rm -f $(docker ps -aq)
+ctrl p and then Ctrl q to come out of the container without stopping container.
+
+docker build -t <imagename> .
+docker build -t <imagename> -f Dockerfile_eg .
+docker history <imageName/ID>
+docker rmi <imagename>
+
+docker cp <containerId>:/file/path/within/container /host/path/target
+
+kubectl get namespaces -> display the namespaces
+kubectl get all        -> it will open the default namespace
+kubectl get all -n <namespace>
+kubectl create namespace flipkart
+kubectl get all -n kube-system -o wide
+kubectl get all -n flipkart 
+kubectl get services
+kubectl apply -f deployment.yml
+kubectl apply -f sa.yml  
+kubectl logs -l app=nginx-deployment-59c47bcc98-kcch8 -c aws-cli
+
+kubectl gets pods <namespace>
+kubectl scale deployment <deployment name> --replicas=0 -n <namespace>
+kubectl apply -f deployment.yml
+kubectl annotate serviceaccount -n <namespace> <service-account name> eks.amazonaws.com/role-arn=<role arn>
+kubectl logs -l app=<app name> --tail 200 
+kubectl exec -n <namespace> <pod name> env | grep AWS
+kubectl delete pods --all -n <namespace> - deletes all pods under that namespace
+kubectl delete pod <pod name> -n <namespace>
+kubectl describe pod <pod name> -n <namespace>
+kubectl get endpoints <service name> -n <namespace>
+kubectl get service servicename -n <namespace> -o yaml
+kubectl apply view-last-applied services --all  services.yaml
+kubectl -n kube-system delete deployment.apps/cluster-autoscaler
+
+aws eks --region <region> update-kubeconfig --name <cluster name>
+export KUBECONFIG=$(pwd)/prod-uk-cluster.yaml
+kubectl cluster-info 
+
+sudo apt install build-essential dkms linux-headers-$(uname -r)
+mount -rw -o remount /
+
+https://earthly.dev/blog/awk-examples/
+If grep lets you search for lines
+sed lets you do replacements in lines then 
+awk was designed to let you do calculations on lines.
+
+sudo lsof /var/lib/dpkg/lock
+df -h
+apt update & apt upgrade
+cat /var/lib/logrotate/status
+
+helm is the unofficial kubernetes package manager
+
+helm repo list
+helm repo update
+helm search repo haproxy
+helm search repo haproxy --version
+helm --namespace=haproxy-ingress list
+helm --namespace=haproxy-ingress rollback ingress 1
+helm install <release-name> --namespace=<namespace> -f values.yml haproxytech/kubernetes-ingress
+
+helm repo add datadog https://helm.datadoghq.com  
+helm install datadog -f datadog.yml  datadog/datadog
+helm repo add haproxytech https://haproxytech.github.io/helm-charts
+helm upgrade haproxy-ingress -f ingress.yaml --namespace haproxy-ingress haproxytech/kubernetes-ingress 
+https://www.haproxy.com/blog/use-helm-to-install-the-haproxy-kubernetes-ingress-controller/ - blog post
+
+https://www.loggly.com/ultimate-guide/using-journalctl/
+https://www.jscape.com/blog/what-is-a-digital-certificate
+https://www.nginx.com/blog/creating-nginx-rewrite-rules/
+https://docs.google.com/spreadsheets/d/1U7ERcTZVaVxAfdPJ5J2FO4KR_1ahKmiv/edit#gid=588639688
+https://helm.sh/docs/intro/using_helm/
+https://roadmap.sh/devops
+https://nginx.viraptor.info/
+https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-options.html
+https://eksctl.io/
+https://docs.mongodb.com/manual/reference/built-in-roles/
+https://aws.amazon.com/blogs/security/how-to-encrypt-and-decrypt-your-data-with-the-aws-encryption-cli/
+https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html
+https://localstack.cloud/
+https://gitimmersion.com/
+https://asecure.cloud/a/scp_network/
+https://www.docker.com/blog/how-kubernetes-works-under-the-hood-with-docker-desktop/
+https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html#policies_policy-simulator-using
+https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-principalarn
+
+helm install kubernetes-ingress haproxytech/kubernetes-ingress \
+  --set controller.kind=DaemonSet \
+  --set controller.daemonset.useHostPort=true
+  
+If the origin doesn't respond, the CloudFront request to the origin times out which is considered an HTTP 5xx error from the origin, even though the origin didn't respond with that error. 
+In that scenario, CloudFront continues to serve cached content.
+
+https://github.com/lomar92/hcp_packer_tfc_demo
